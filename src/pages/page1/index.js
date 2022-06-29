@@ -1,9 +1,17 @@
 import '../../layout/index'
 import AppBase from "../../layout/AppBase";
-class App extends AppBase{
+import '../../assets/css/color.scss'
+import  Vue from 'vue'
+import App from "./App.vue";
+class VimiApp extends AppBase{
     onPageReady() {
         super.onPageReady();
-        document.write("hello web!!")
+        new Vue({
+            el: '#vimi-app',
+            components: {App},
+            template: '<App/>'
+        })
     }
 }
-new  App()
+new VimiApp()
+
