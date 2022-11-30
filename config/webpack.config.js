@@ -42,6 +42,19 @@ module.exports = {
                 test: /\.vue$/,
                 loader: 'vue-loader',
                 options: vueLoaderConfig
+            },
+            //图片等文件加载
+            {
+                test: /\.(png|jpg|gif|jpeg|svg)$/,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 1024,
+                            name: '[name].[ext]'
+                        }
+                    }
+                ]
             }
         ]
     },
