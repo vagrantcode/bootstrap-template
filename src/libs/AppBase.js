@@ -8,17 +8,25 @@ import $Router from "../router";
 class AppBase {
     router = null
     path = ''
+    usrRouter = true
 
     constructor() {
-        this.router = $Router
-        Vue.prototype.$router = this.router
+        if (this.usrRouter) {
+            this.router = $Router
+            Vue.prototype.$router = this.router
+        }
     }
 
     @Subscribe('pageLoad')
     pageLoad() {
-        if (this.router.toPage(this.path)) {
+        if (!this.usrRouter) {
             this.onPageReady()
+        } else {
+            if (this.router.toPage(this.path)) {
+                this.onPageReady()
+            }
         }
+
     }
 
     @Subscribe('pageReady')
