@@ -1,5 +1,5 @@
 import '../../src/api/api'
-import {EventBus} from "striver-libs";
+import eventBus from "mw-libs/MessageBus/MsgBus";
 document.addEventListener('DOMContentLoaded',()=>{
-EventBus.excuteSub('pageReady')
+eventBus.executeSub('pageLoad','')
 })

@@ -1,9 +1,10 @@
 import '../../layout/index'
-import AppBase from "../../layout/AppBase";
+import AppBase from "../../libs/AppBase";
 import '../../assets/css/color.scss'
 import  Vue from 'vue'
 import App from "./App.vue";
 class VimiApp extends AppBase{
+    path='#/page1'
     onPageReady() {
         super.onPageReady();
         new Vue({
