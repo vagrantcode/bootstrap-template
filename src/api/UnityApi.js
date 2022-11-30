@@ -15,15 +15,15 @@ class Message{
     return new Message(json.type,json.message)
   }
 }
-const {EventBus} = require("striver-libs");
+const eventBus = require("mw-libs/MessageBus/MsgBus").default;
 window.setChart = (data, option, dataOption) => {
 
   if (data) {
     option = dataFormat(data, option, dataOption)
   }
-  EventBus.excuteSub('setChart', {option: option})
+  eventBus.executeSub('setChart', {option: option})
 }
-EventBus.subcribe('pageReady', pageReady)
+eventBus.subscribe('pageReady', pageReady)
 
 function dataFormat(apiData, option, dataOption) {
   option = option || {
@@ -86,7 +86,7 @@ function addMessageListener() {
   window.vuplex.addEventListener('message', function(event) {
     try{
       let json = Message.fromJson(JSON.parse(event.data));
-      EventBus.excuteSub(json.type,json.message)
+      eventBus.executeSub(json.type,json.message)
     }catch (e){
       sendMessage(e.message)
     }

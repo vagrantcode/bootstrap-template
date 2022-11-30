@@ -1,4 +1,5 @@
 import eventBus from "mw-libs/MessageBus/MsgBus";
+
 export class RouterControl {
     router = {}
 
@@ -16,7 +17,17 @@ export class RouterControl {
     }
 
     push(route) {
-        window.location.href = '/#/' + route.path
+        let type = typeof route
+        switch (type) {
+            case "string":
+                route=route||''
+                window.location.href = '/#/' + route
+                break
+            case "object":
+                window.location.href = '/#/' + route.path
+                break
+        }
+
     }
 
     toPage(curPath) {
