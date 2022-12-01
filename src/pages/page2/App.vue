@@ -2,7 +2,7 @@
   <div id="app">
     <back-button/>
     <div style="margin-top: 60px;">
-      页面2
+      <span class="text">页面2</span>
     </div>
   </div>
 </template>
@@ -16,6 +16,8 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+.text{
+  color: $text-color;
+}
 </style>

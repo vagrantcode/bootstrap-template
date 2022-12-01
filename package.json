@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "chalk": "^5.0.1",
+    "friendly-errors-webpack-plugin": "^1.7.0",
     "mini-css-extract-plugin": "^2.6.1"
   }
 }

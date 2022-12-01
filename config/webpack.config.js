@@ -2,10 +2,11 @@
 
 const path = require('path');
 const htmlWebpackPlugin = require("html-webpack-plugin");
-/*const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");*/
+const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
 const vueLoaderConfig = require('./vue-loader.conf');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const {getEntry, getHtmlTemplate} = require("./util");
+console.log(path.resolve(__dirname,'../src/assets/css/color.scss'))
 module.exports = {
     mode: "development",
     stats: "errors-only",
@@ -36,8 +37,22 @@ module.exports = {
             //所有第三方模块的匹配规则
             {test: /\.css$/, use: [MiniCssExtractPlugin.loader, "css-loader"]},
             // 配置less处理
-            {test: /\.less$/, use: [MiniCssExtractPlugin.loader, "css-loader", "less-loader","sass-loader"]},
-            {test: /\.scss$/, use: [MiniCssExtractPlugin.loader, "css-loader","sass-loader"]},
+            {test: /\.less$/, use: [MiniCssExtractPlugin.loader, "css-loader", "less-loader", "sass-loader"]},
+            {
+                test: /\.s[ac]ss$/, use: [MiniCssExtractPlugin.loader,"css-loader",
+                    {
+                        loader: "sass-loader",
+                        options: {
+                            sourceMap:false
+                        }
+                    },
+                    {
+                        loader: 'sass-resources-loader',
+                        options: {
+                            resources: path.resolve(__dirname,'../src/assets/css/color.scss')
+                        }
+                    }]
+            },
             {
                 test: /\.vue$/,
                 loader: 'vue-loader',
@@ -62,11 +77,11 @@ module.exports = {
         /* new htmlWebpackPlugin(),//配置此插件会自动生成一个index.html并且自动引入bundle.js从而我们无需关心bundle.js的路径问题。*/
         ...getHtmlTemplate(),
         new MiniCssExtractPlugin({
-            filename:"css/[name].[contenthash].css",
-            ignoreOrder:true
+            filename: "css/[name].[contenthash].css",
+            ignoreOrder: true
+        }),
+        new FriendlyErrorsWebpackPlugin({
+            clearConsole: true
         })
-        /*       new FriendlyErrorsWebpackPlugin({
-                   clearConsole:true
-               })*/
     ]
 };
