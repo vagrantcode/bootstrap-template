@@ -14,6 +14,7 @@ module.exports = {
     output: {
         filename: 'js/[contenthash].js',//定义输出文件名称
         path: path.resolve(__dirname, '../dist'),//定义输出文件路径
+        assetModuleFilename: "public/[hash][ext]",
         publicPath: ""
     },
     resolve: {
@@ -35,10 +36,28 @@ module.exports = {
             use: {loader: 'babel-loader'} // options 在 .babelrc 定义
         },
             //所有第三方模块的匹配规则
-            {test: /\.css$/, use: [MiniCssExtractPlugin.loader, "css-loader"]},
+            {
+                test: /\.css$/, use: [{
+                    loader: MiniCssExtractPlugin.loader, options: {
+                        publicPath: "../../"
+                    }
+                }, "css-loader"]
+            },
             // 配置less处理
-            {test: /\.less$/, use: [MiniCssExtractPlugin.loader, "css-loader", "less-loader","sass-loader"]},
-            {test: /\.scss$/, use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]},
+            {
+                test: /\.less$/, use: [{
+                    loader: MiniCssExtractPlugin.loader, options: {
+                        publicPath: "../../"
+                    }
+                }, "css-loader", "less-loader", "sass-loader"]
+            },
+            {
+                test: /\.scss$/, use: [{
+                    loader: MiniCssExtractPlugin.loader, options: {
+                        publicPath: "../../"
+                    }
+                }, "css-loader", "sass-loader"]
+            },
             {
                 test: /\.vue$/,
                 loader: 'vue-loader',
@@ -50,8 +69,8 @@ module.exports = {
         /* new htmlWebpackPlugin(),//配置此插件会自动生成一个index.html并且自动引入bundle.js从而我们无需关心bundle.js的路径问题。*/
         ...getHtmlTemplate(),
         new MiniCssExtractPlugin({
-            filename:"css/[name].[contenthash].css",
-            ignoreOrder:true
+            filename: "public/css/[name].[contenthash].css",
+            ignoreOrder: true
         })
         /*       new FriendlyErrorsWebpackPlugin({
                    clearConsole:true

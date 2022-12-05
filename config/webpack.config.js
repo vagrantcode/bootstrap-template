@@ -14,6 +14,7 @@ module.exports = {
     output: {
         filename: 'js/[contenthash].js',//定义输出文件名称
         path: path.resolve(__dirname, '../dist'),//定义输出文件路径
+        assetModuleFilename: "public/[hash][ext]",
         publicPath: ""
     },
     resolve: {
@@ -61,15 +62,18 @@ module.exports = {
             //图片等文件加载
             {
                 test: /\.(png|jpg|gif|jpeg|svg)$/,
-                use: [
-                    {
-                        loader: 'url-loader',
-                        options: {
-                            limit: 1024,
-                            name: '[name].[ext]'
-                        }
-                    }
-                ]
+                type: 'asset/resource',
+                generator: {
+                    filename:"image/[name].[ext]"
+                }
+            },
+            //字体资源
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/i,
+                type: 'asset/resource',
+                generator: {
+                    filename:"font/[name].[ext]"
+                }
             }
         ]
     },
@@ -77,7 +81,7 @@ module.exports = {
         /* new htmlWebpackPlugin(),//配置此插件会自动生成一个index.html并且自动引入bundle.js从而我们无需关心bundle.js的路径问题。*/
         ...getHtmlTemplate(),
         new MiniCssExtractPlugin({
-            filename: "css/[name].[contenthash].css",
+            filename: "public/css/[name].[contenthash].css",
             ignoreOrder: true
         }),
         new FriendlyErrorsWebpackPlugin({
