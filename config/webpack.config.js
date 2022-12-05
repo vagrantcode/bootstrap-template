@@ -25,7 +25,7 @@ module.exports = {
     devServer: {
         //配置webpack-dev-server（开发环境用的热部署）
         host: "localhost",//定义主机
-        port: 8000,//定义端口号
+        port: 8001,//定义端口号
         open: false//定义是否自动打开页面
     },
     module: {

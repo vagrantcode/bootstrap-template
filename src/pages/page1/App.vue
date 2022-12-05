@@ -7,8 +7,8 @@
 
 <script>
 
-import VueChart from "../../libs/vue/VueChart";
-import BackButton from "../../libs/vue/BackButton";
+import VueChart from "../../components/VueChart";
+import BackButton from "../../components/BackButton";
 
 export default {
   name: "App.vue",

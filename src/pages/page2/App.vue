@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import BackButton from "../../libs/vue/BackButton";
+import BackButton from "../../components/BackButton";
 
 export default {
   name: "App.vue",
